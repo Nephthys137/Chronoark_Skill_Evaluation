@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <LangVersion>latest</LangVersion>
+        <DebugType>embedded</DebugType>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <WarningLevel>9999</WarningLevel>
+        <Optimize>True</Optimize>
+		<OutputPath>.\Release\</OutputPath>
+        <TargetFramework>net472</TargetFramework>
+        <NoWarn>1701;1702;IDE0060</NoWarn>
+        <Configurations>Debug;Release</Configurations>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Release\**" />
+    </ItemGroup>
+    
+  <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>D:\Program Files (x86)\Steam\steamapps\workshop\content\1188930\3210142135\Assemblies\Database\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:\Program Files (x86)\Steam\steamapps\common\Chrono Ark\ChronoArk_Data\Managed\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+    <Target Name="CopyFile" AfterTargets="build">
+      <Message Text="Copying files..." Importance="high" />
+      <Copy SourceFiles="$(OutputPath)$(AssemblyName).exe" DestinationFolder="D:\Program Files (x86)\Steam\steamapps\workshop\content\1188930\3210142135\Assemblies\Database" Condition="'$(Configuration)' == 'Release'" />
+    </Target>
+</Project>

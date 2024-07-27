@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Updater_Evaluation": {
+      "commandName": "Project",
+      "commandLineArgs": "UpdaterUserData"
+    }
+  }
+}

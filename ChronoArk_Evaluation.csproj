@@ -1,0 +1,64 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <LangVersion>latest</LangVersion>
+        <DebugType>embedded</DebugType>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <WarningLevel>9999</WarningLevel>
+        <Optimize>True</Optimize>
+		<OutputPath>.\Release\</OutputPath>
+        <TargetFramework>net472</TargetFramework>
+        <NoWarn>IDE0060</NoWarn>
+        <PublicizeAll>true</PublicizeAll>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+      <None Remove="Release\**" />
+      <Compile Remove="Updater_Evaluation\**" />
+      <EmbeddedResource Remove="Updater_Evaluation\**" />
+      <None Remove="Updater_Evaluation\**" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="HarmonyX" Version="2.5.2" IncludeAssets="compile" />
+      <PackageReference Include="Krafs.Publicizer" Version="2.2.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <Reference Include="Assembly-CSharp-firstpass">
+        <HintPath>D:\Program Files (x86)\Steam\steamapps\common\Chrono Ark\ChronoArk_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      </Reference>
+      <Reference Include="mscorlib">
+        <HintPath>D:\Program Files (x86)\Steam\steamapps\common\Chrono Ark\ChronoArk_Data\Managed\mscorlib.dll</HintPath>
+      </Reference>
+      <Reference Include="Assembly-CSharp">
+        <HintPath>D:\Program Files (x86)\Steam\steamapps\common\Chrono Ark\ChronoArk_Data\Managed\Assembly-CSharp.dll</HintPath>
+      </Reference>
+      <Reference Include="netstandard">
+        <HintPath>D:\Program Files (x86)\Steam\steamapps\common\Chrono Ark\ChronoArk_Data\Managed\netstandard.dll</HintPath>
+      </Reference>
+      <Reference Include="Newtonsoft.Json">
+        <HintPath>D:\Program Files (x86)\Steam\steamapps\common\Chrono Ark\ChronoArk_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine">
+        <HintPath>D:\Program Files (x86)\Steam\steamapps\common\Chrono Ark\ChronoArk_Data\Managed\UnityEngine.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>D:\Program Files (x86)\Steam\steamapps\common\Chrono Ark\ChronoArk_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.UI">
+        <HintPath>D:\Program Files (x86)\Steam\steamapps\common\Chrono Ark\ChronoArk_Data\Managed\UnityEngine.UI.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.UnityWebRequestModule">
+        <HintPath>D:\Program Files (x86)\Steam\steamapps\common\Chrono Ark\ChronoArk_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+    <Target Name="CopyFile" AfterTargets="build">
+      <Message Text="Copying files..." Importance="high" />
+      <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="D:\Program Files (x86)\Steam\steamapps\workshop\content\1188930\3210142135\Assemblies" />
+    </Target>
+</Project>
