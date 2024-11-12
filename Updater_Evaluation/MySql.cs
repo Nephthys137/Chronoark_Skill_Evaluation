@@ -38,11 +38,25 @@ namespace Updater_Evaluation
 
             using MySqlConnection conn = new(MySqlCon);
             conn.Open();
-            string updateSql = "SET SQL_SAFE_UPDATES = 0;";
+            List<string> values = [];
             foreach (var skill in skill_Evaluation_Data_List.RECORDS)
             {
-                updateSql += $"UPDATE skill_evaluation SET 出现次数 = {skill.出现次数:F0}, 获得次数 = {skill.获得次数:F0}, 删除次数 = {skill.删除次数:F0}, 尝试次数 = {skill.尝试次数:F0}, 通关次数 = {skill.通关次数:F0} WHERE 序号 = {skill.序号};";
+                values.Add($"({skill.序号}, {skill.出现次数:F0}, {skill.获得次数:F0}, {skill.删除次数:F0}, {skill.尝试次数:F0}, {skill.通关次数:F0})");
+                skill.出现次数 = 0;
+                skill.获得次数 = 0;
+                skill.删除次数 = 0;
+                skill.尝试次数 = 0;
+                skill.通关次数 = 0;
             }
+            string updateSql = $@"
+                INSERT INTO skill_evaluation (序号, 出现次数, 获得次数, 删除次数, 尝试次数, 通关次数)
+                VALUES {string.Join(", ", values)}
+                ON DUPLICATE KEY UPDATE
+                    出现次数 = 出现次数 + VALUES(出现次数),
+                    获得次数 = 获得次数 + VALUES(获得次数),
+                    删除次数 = 删除次数 + VALUES(删除次数),
+                    尝试次数 = 尝试次数 + VALUES(尝试次数),
+                    通关次数 = 通关次数 + VALUES(通关次数);";
             new MySqlCommand(updateSql, conn).ExecuteNonQuery();
 
             string NowTime = DateTime.Now.ToString("yyyy/%M/%d %H:%m:%s");

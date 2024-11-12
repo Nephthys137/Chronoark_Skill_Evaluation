@@ -18,14 +18,14 @@ namespace ChronoArk_Evaluation
         }
         [HarmonyPatch(typeof(SkillToolTip), nameof(SkillToolTip.Input))]
         [HarmonyPostfix]
-        static void Input(SkillToolTip __instance, Skill Skill, Stat _stat, ToolTipWindow.SkillTooltipValues skillvalues, bool View)
+        static void Input(SkillToolTip __instance, Skill Skill, Stat _stat, ToolTipWindow.SkillTooltipValues skillvalues, bool View, SkillPrefab sp)
         {
             if (Mod_Init.Skill_Data_Dic.TryGetValue(Skill.MySkill.KeyID, out var skill_Evaluation_Data))
                 __instance.PlusTooltipsView(Mod_Init.Evaluation_Bool ? "Skill Evaluation" : "WinProb", skill_Evaluation_Data.ToString());
         }
         [HarmonyPatch(typeof(SkillView), nameof(SkillView.Init))]
         [HarmonyPostfix]
-        static void Init(SkillView __instance, GDESkillData _data, int _index)
+        static void Init(SkillView __instance, GDESkillData _data, int _index, SkillPrefab sp)
         {
             if (Mod_Init.Skill_Data_Dic.TryGetValue(_data.KeyID, out var skill_Evaluation_Data))
                 __instance.PlusTooltipsView(Mod_Init.Evaluation_Bool ? "<b>Skill Evaluation</b>" : "<b>WinProb</b>", skill_Evaluation_Data.ToString());

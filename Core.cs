@@ -24,7 +24,7 @@
         {
             foreach (Character character in PlayData.TSavedata.Party)
                 foreach (var skill in character.SkillDatas)
-                    GetOrCreateEvaluationData(skill.Skill.KeyID).尝试次数++;
+                    GetOrCreateEvaluationData(skill.SkillInfo.KeyID).尝试次数++;
             foreach (var skill in PlayData.TSavedata.LucySkills)
                 GetOrCreateEvaluationData(skill).尝试次数++;
         }
@@ -33,7 +33,7 @@
             foreach (Character character in PlayData.TSavedata.Party)
                 foreach (var skill in character.SkillDatas)
                 {
-                    var Evaluation_Data = GetOrCreateEvaluationData(skill.Skill.KeyID);
+                    var Evaluation_Data = GetOrCreateEvaluationData(skill.SkillInfo.KeyID);
                     Evaluation_Data.通关次数++;
                     Evaluation_Data.尝试次数++;
                 }

@@ -88,7 +88,7 @@ namespace Updater_Evaluation
                     if (!Historical_Data_Dic.TryGetValue(skill_evaluation.技能名, out var Historical_Data))
                         Historical_Data_Dic[skill_evaluation.技能名] = Historical_Data = new();
 #if DEBUG
-                    if (skill_evaluation.获得次数 > 20000)
+                    if (skill_evaluation.获得次数 > 200000)
                     {
                         skill_evaluation.GrabProb = 100 * (skill_evaluation.获得次数 / skill_evaluation.出现次数);
                         skill_evaluation.DelProb = 100 * (skill_evaluation.删除次数 / skill_evaluation.获得次数);
@@ -111,13 +111,7 @@ namespace Updater_Evaluation
                         Historical_Data.尝试次数 += User_Data.尝试次数;
                         Historical_Data.通关次数 += User_Data.通关次数;
 
-                        User_Data.出现次数 = 0;
-                        User_Data.获得次数 = 0;
-                        User_Data.删除次数 = 0;
-                        User_Data.尝试次数 = 0;
-                        User_Data.通关次数 = 0;
-
-                        Temp_Evaluation_List.RECORDS.Add(skill_evaluation);
+                        Temp_Evaluation_List.RECORDS.Add(User_Data);
                     }
 #endif
                 }
